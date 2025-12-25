@@ -9,3 +9,6 @@
 <img width="1498" height="337" alt="Identify Anomalies (Unusual PTR lookups - reverse DNS scanning)" src="https://github.com/user-attachments/assets/e49aa4e2-ab97-4a6f-999c-1ea44987f3c6" />
 <img width="1327" height="581" alt="Identify Anomalies(Excessive DNS traffic from 1 host)" src="https://github.com/user-attachments/assets/a3208ba2-3cb2-40ff-ab80-d7972e3e7f44" />
 <img width="1521" height="694" alt="Find Top DNS Sources" src="https://github.com/user-attachments/assets/cca28cd7-74d1-49d1-a5fe-2bb0e7b30a05" />
+<img width="1281" height="296" alt="Investigate Suspicious Domains(Rare domains -C2)" src="https://github.com/user-attachments/assets/305f4928-8a06-469b-ad0a-46a78e5d5aac" />
+<img width="1563" height="378" alt="Investigate Suspicious Domains(Long domains)" src="https://github.com/user-attachments/assets/3c6084e5-6d2b-4b57-8595-4d3ccab75960" />
+<img width="1569" height="321" alt="Investigate Suspicious Domains(Known malicious domain check)" src="https://github.com/user-attachments/assets/fb923e92-0e16-45ff-b47f-d8aec6f1e100" />
