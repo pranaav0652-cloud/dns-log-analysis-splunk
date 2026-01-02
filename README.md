@@ -109,7 +109,6 @@ index=dns_index sourcetype=dns_logs
 ```spl
 index=dns_index sourcetype=dns_logs PTR
 ```
----
 
 ### 7. Identify Rare DNS Queries
 - Detect low-frequency DNS queries that may indicate domain generation algorithms (DGA).
