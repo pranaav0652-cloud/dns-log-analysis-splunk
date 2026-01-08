@@ -36,89 +36,54 @@ This project mirrors common SOC responsibilities, including:
 - **Threat Intelligence**: VirusTotal
 
 
-## Steps to Upload Sample DNS Log Files to Splunk SIEM
+## Data Ingestion Workflow
 
-### 1. Prepare Sample DNS Log Files
-- Obtain a sample DNS log file in a supported format (e.g., `.log` or `.txt`).
-- Ensure the logs contain relevant DNS information such as:
-  - Source IP address
-  - Destination IP address
-  - Queried domain name
-  - Query type
-  - Response code
-- Store the log file in a directory accessible by the Splunk instance.
+### 1. Prepared DNS log files containing:
+- Source IP
+- Destination IP
+- Queried domain
+- Query type
+- Response code
 
+### 2. Uploaded logs via Splunk Web -> Add Data
 
-### 2. Upload Log Files to Splunk
-- Log in to the Splunk Web interface.
-- Navigate to **Settings → Add Data**.
-- Select **Upload** as the data input method.
+### 3. Configured:
+- Custom sourcetype: dns_logs
+- Dedicated index: dns_index
 
-
-### 3. Choose File
-- Click **Select File** and upload the prepared DNS log file.
-
-
-### 4. Set Sourcetype
-- In the **Set Source Type** section, configure a custom sourcetype for DNS logs (e.g., `dns_logs`).
-- Preview events to ensure the DNS data is parsed correctly.
-
-
-### 5. Configure Index and Host
-- Assign a dedicated index (e.g., `dns_index`) to store DNS events.
-- Configure the host field as required for identification.
-
-
-### 6. Review and Submit
-- Review all ingestion settings including file name, sourcetype, host, and index.
-- Click **Submit** to ingest the DNS log file into Splunk.
-
-
-### 7. Verify Data Ingestion
-- Navigate to the Splunk Search interface.
-- Run the following query to confirm DNS events are indexed and searchable:
+### 4. Verified ingestion and parsing:
 
 ```spl
 index=dns_index sourcetype=dns_logs
 ```
 
-## Steps to Analyze DNS Log Files in Splunk SIEM
 
-### 1. Search for DNS Events
-- Retrieve all DNS events to understand the structure and available fields.
+## Detection & Analysis Use Cases
+
+### 1. DNS Event Exploration
+Reviewed DNS events to understand available fields and data structure.
 
 ```spl
 index=dns_index sourcetype=dns_logs
 ```
 
-### 2. Extract Relevant Fields
-- Identify important DNS fields such as source IP, domain name, query type, and response code.
-- Display extracted fields to support structured analysis.
+### 2. Field Extraction & Validation
+Identified critical DNS fields for investigation.
 
 ```spl
 index=dns_index sourcetype=dns_logs
-| table _time src_ip
+| table _time src_ip query query_type response_code
 ```
 
-### 3. Identify Anomalies in DNS Activity
-- Analyze DNS traffic for unusual patterns or spikes that may indicate suspicious behavior.
+### 3. High-Volume DNS Activity Detection
+Detected hosts generating an unusually high number of DNS queries.
 
 ```spl
 index=dns_index sourcetype=dns_logs
 | stats count by src_ip
 | sort - count
 ```
-
-### 4. Find Top DNS Query Sources
-- Identify hosts generating the highest volume of DNS queries.
-
-```spl
-index=dns_index sourcetype=dns_logs
-| stats count by src_ip
-```
-
-### 5. Detect High-Volume DNS Activity
-- Filter DNS sources that exceed a defined activity threshold for further investigation.
+Filtered sources exceeding a defined threshold:
 
 ```spl
 index=dns_index sourcetype=dns_logs
@@ -126,15 +91,23 @@ index=dns_index sourcetype=dns_logs
 | where count > 1000
 ```
 
-### 6. Investigate Reverse DNS (PTR) Lookups
-- Analyze PTR queries to identify potential scanning or reconnaissance activity.
+### 4. Top DNS Query Sources
+Identified systems generating the most DNS traffic.
+
+```spl
+index=dns_index sourcetype=dns_logs
+| stats count by src_ip
+```
+
+### 5. Reverse DNS (PTR) Reconnaissance Detection
+Investigated PTR queries that may indicate scanning or reconnaissance.
 
 ```spl
 index=dns_index sourcetype=dns_logs PTR
 ```
 
-### 7. Identify Rare DNS Queries
-- Detect low-frequency DNS queries that may indicate domain generation algorithms (DGA).
+### 6. Rare DNS Query Detection (DGA Indicators)
+Detected low-frequency domain queries that may suggest DGA-based malware.
 
 ```spl
 index=dns_index sourcetype=dns_logs
@@ -142,14 +115,31 @@ index=dns_index sourcetype=dns_logs
 | where count < 5
 ```
 
-### 8. Investigate Known Malicious Domains
-- Search DNS logs for known malicious domains using threat intelligence references such as VirusTotal.
+### 7. Known Malicious Domain Investigation
+Searched for DNS queries associated with known malicious domains and validated using threat intelligence.
 
 ```spl
 index=dns_index sourcetype=dns_logs query="maliciousdomain.com"
 ```
+**Threat Validation:**
+Domains were cross-checked using VirusTotal to confirm malicious reputation.
+
+
+## Detection Use Cases Implemented
+- High-volume DNS abuse detection
+- Rare domain query identification (DGA indicators)
+- Reverse DNS reconnaissance analysis
+- Known malicious domain investigation
+- DNS anomaly analysis using statistical thresholds
+
+## Skills Demonstrated
+- Splunk SIEM configuration & usage
+- SPL query development
+- DNS security analysis
+- Threat detection & investigation
+- Threat intelligence validation
+- SOC analyst investigative workflow
 
 ## Conclusion
-Analyzing DNS log files using Splunk SIEM enables security analysts to detect abnormal network behavior and investigate potential threats effectively. Through DNS log ingestion, statistical analysis, and anomaly detection, this project demonstrates how DNS monitoring can strengthen an organization’s overall security posture.
+This project demonstrates how DNS log analysis using Splunk SIEM can effectively support threat detection and investigation within a SOC environment. By applying structured analysis, SPL queries, and threat intelligence validation, DNS telemetry can provide critical insights into malicious network activity.
 
-These steps can be adapted or expanded based on specific environments, datasets, or threat-hunting objectives.
