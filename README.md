@@ -18,6 +18,23 @@ The objective is to detect and investigate suspicious DNS activity that may indi
 - Apply threat intelligence validation to support investigations
 - Demonstrate Tier-1 SOC analyst workflows
 
+## SOC Analyst Relevance
+This project mirrors common SOC responsibilities, including:
+
+- Log ingestion and validation in a SIEM
+- Writing and tuning detection queries (SPL)
+- Investigating suspicious network behavior
+- Using threat intelligence to validate findings
+- Following a structured investigation approach
+
+## Environment & Tools
+- **SIEM**: Splunk Enterprise
+- **Log Source**: DNS log files (.log / .txt)
+- **Index**: dns_index
+- **Sourcetype**: dns_logs
+- **Query Language**: SPL (Search Processing Language)
+- **Threat Intelligence**: VirusTotal
+
 
 ## Steps to Upload Sample DNS Log Files to Splunk SIEM
 
