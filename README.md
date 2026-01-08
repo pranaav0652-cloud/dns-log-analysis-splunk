@@ -1,16 +1,22 @@
 # Analyzing DNS Log Files Using Splunk SIEM
 
-## Introduction
-DNS (Domain Name System) logs play a critical role in monitoring network activity and detecting potential security threats. By analyzing DNS traffic, security analysts can identify suspicious behaviors such as malware communication, domain generation algorithms (DGA), and reconnaissance activity.  
+## Project Overview
+This project simulates a real-world Security Operations Center (SOC) investigation by ingesting and analyzing DNS log data using Splunk SIEM.
 
-This project demonstrates how **Splunk SIEM** can be used to ingest, analyze, and investigate DNS logs following a **Security Operations Center (SOC) analyst workflow**.
+The objective is to detect and investigate suspicious DNS activity that may indicate malware communication, domain generation algorithms (DGA), reconnaissance, or other malicious behavior — following a structured SOC analyst workflow.
 
 
-## Prerequisites
-Before analyzing DNS logs in Splunk, ensure the following:
-- Splunk Enterprise is installed and properly configured.
-- DNS log files are available for ingestion into Splunk.
-- Basic familiarity with SPL (Search Processing Language).
+## Objectives
+- Ingest DNS log data into Splunk SIEM using a custom index and sourcetype
+- Perform DNS threat detection using SPL queries
+- Identify anomalous DNS behavior such as:
+    - High-volume DNS activity
+    - Rare domain lookups (DGA indicators)
+    - Reverse DNS (PTR) reconnaissance
+    - Known malicious domain communication
+
+- Apply threat intelligence validation to support investigations
+- Demonstrate Tier-1 SOC analyst workflows
 
 
 ## Steps to Upload Sample DNS Log Files to Splunk SIEM
